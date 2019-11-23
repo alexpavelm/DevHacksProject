@@ -2,20 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:bubble/bubble.dart';
 
 class LearnView extends StatefulWidget {
+  static Question ready = Question(
+    text:
+        "You're ready to use the app! Go to the investment tab (\$) to start making money.",
+  );
+  static Question risk = Question(
+      text: "What kind of risk are you willing to take?",
+      details:
+          "Please note that a higher risk often leads to a higher reward.",
+      answers: [
+        Answer(text: "Low risk"),
+        Answer(text: "Moderate risk"),
+        Answer(text: "High risk"),
+      ]);
+  static Question invest = Question(
+      text: "Do you already know what you want to invest in?",
+      answers: [
+        Answer(text: "Yes", nextQuestion: ready),
+        Answer(text: "No", nextQuestion: risk)
+      ]);
+
   @override
-  _LearnViewState createState() =>
-      _LearnViewState(Question(text: "Stonks", answers: [
-        Answer(text: "Stonks1", nextQuestion: Question(text: "Simple stonks")),
-        Answer(text: "Stonks2")
-      ]));
+  _LearnViewState createState() => _LearnViewState(invest);
 }
 
 class Question {
   String _text;
+  String _details;
   List<Answer> _answers;
 
-  Question({String text, List<Answer> answers = null}) {
+  Question({String text, String details = null, List<Answer> answers = null}) {
     _text = text;
+    _details = details;
     if (answers == null)
       _answers = <Answer>[];
     else
@@ -36,6 +54,11 @@ class Answer {
 class _LearnViewState extends State<LearnView> {
   TextStyle _questionStyle = TextStyle(
       fontFamily: 'Avenir', fontWeight: FontWeight.w600, fontSize: 24);
+  TextStyle _detailsStyle = TextStyle(
+      fontFamily: 'Avenir',
+      fontWeight: FontWeight.w100,
+      fontSize: 18,
+      color: Colors.black54);
   TextStyle _answerStyle = TextStyle(
     fontFamily: 'Avenir',
     fontSize: 18,
@@ -54,6 +77,12 @@ class _LearnViewState extends State<LearnView> {
     children.add(Container(
         alignment: Alignment.topLeft,
         child: Text(_question._text, style: _questionStyle)));
+    if (_question._details != null) {
+      children.add(SizedBox(height: 2.0,));
+      children.add(Container(
+          alignment: Alignment.topLeft,
+          child: Text(_question._details, style: _detailsStyle)));
+    }
     children.add(SizedBox(
       height: 5.0,
     ));
@@ -117,9 +146,8 @@ class _LearnViewState extends State<LearnView> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Bubble(style: styleTutorial, child: getContent()),
-
             Container(
-              height: 200,
+                height: 200,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/images/stonks.png"),
