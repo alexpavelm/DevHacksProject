@@ -42,7 +42,7 @@ class BottomNavBarState extends State<BottomNavBar> {
                 icon: Icon(Icons.library_books),
               ),
               Tab(
-                icon: Icon(Icons.list),
+                icon: Icon(Icons.help),
               ),
               Tab(
                 icon: Icon(Icons.account_circle),
