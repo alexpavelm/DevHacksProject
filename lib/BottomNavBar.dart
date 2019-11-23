@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 
 import 'InvestmentPage/InvestmentView.dart';
 import 'LearnPage/LearnView.dart';
+import 'LoginPage.dart';
 import 'NewsPage/NewsView.dart';
 import 'ProfilePage/ProfileView.dart';
 
 class BottomNavBar extends StatefulWidget {
+  int index;
+  BottomNavBar(this.index);
   @override
   State<BottomNavBar> createState() {
     return BottomNavBarState();
@@ -24,6 +27,7 @@ class BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      initialIndex: widget.index,
       length: 4,
       child: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -44,9 +48,9 @@ class BottomNavBarState extends State<BottomNavBar> {
                 icon: Icon(Icons.account_circle),
               ),
             ],
-            labelColor: Colors.blue,
+            labelColor: Theme.of(context).primaryColor,
             unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.blue,
+            indicatorColor: Theme.of(context).primaryColor,
           ),
         ),
       ),
