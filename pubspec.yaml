@@ -39,6 +39,13 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  fonts:
+    - family: Avenir
+      fonts:
+        - asset: fonts/AvenirNextRoundedStd-Bold.ttf
+        - asset: fonts/AvenirNextRoundedStd-Med.ttf
+        - asset: fonts/AvenirNextRoundedStd-Demi.ttf
+        - asset: fonts/AvenirNextRoundedStd-Reg.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

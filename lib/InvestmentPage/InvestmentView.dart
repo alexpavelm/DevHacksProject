@@ -9,7 +9,7 @@ class _InvestmentViewState extends State<InvestmentView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(child: Text("Investment")),
+      child: Center(child: Text("Investments", style: TextStyle(fontFamily: 'Avenir', fontSize: 30, fontWeight: FontWeight.w500),)),
     );
   }
 }
