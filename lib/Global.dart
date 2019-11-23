@@ -20,7 +20,7 @@ class Global {
   // Onboarding (starts at qStart)
   static Question qReady = Question(
     text:
-    "You're ready to use the app! Go to the investment tab (\$) to start making money.",
+        "You're ready to use the app! Go to the investment tab (\$) to start making money.",
   );
   static Question qInvestments = Question(
       text: "What do you want to invest in?",
@@ -65,7 +65,22 @@ class Global {
       ]);
 
   // Learn (starts at qLearn)
-  static Question qLearn = Question(text: 'Start learning now!');
+  static Question qLearn =
+      Question(text: 'What would you like to learn about?', answers: [
+    Answer(text: "Risk"),
+    Answer(
+        text: "Investments",
+        nextQuestion: Question(
+            text: "Which type of investment are you interested in?",
+            answers: [
+              Answer(text: "Stocks"),
+              Answer(text: "Bonds"),
+              Answer(text: "Mutual Funds"),
+              Answer(text: "REIT"),
+              Answer(text: "Index Funds"),
+              Answer(text: "Startups")
+            ]))
+  ]);
   bool isLoggedIn = false;
   bool isGuest = false;
 }

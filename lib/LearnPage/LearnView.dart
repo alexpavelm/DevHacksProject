@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bubble/bubble.dart';
 import 'package:devhacks_app/BottomNavBar.dart';
 
-enum LearnType {ONBOARDING, LEARN}
+enum LearnType { ONBOARDING, LEARN }
 
 class LearnView extends StatefulWidget {
   Question question;
@@ -96,13 +96,18 @@ class _LearnViewState extends State<LearnView> {
           child: Text(_question._details, style: detailsStyle)));
     }
     children.add(SizedBox(
-      height: 5.0,
+      height: _question._answers.length > 0 ? 5.0 : 0,
     ));
+    bool skip = true; // skip first padding
+    List<Widget> scrollChildren = <Widget>[];
     for (Answer answer in _question._answers) {
-      children.add(SizedBox(
-        height: 10.0,
-      ));
-      children.add(getButtonUI(
+      if (!skip) {
+        scrollChildren.add(SizedBox(
+          height: 10.0,
+        ));
+      }
+      skip = false;
+      scrollChildren.add(getButtonUI(
           answer._text,
           _question._questionType == QuestionType.SINGLE_ANSWER
               ? true
@@ -116,6 +121,14 @@ class _LearnViewState extends State<LearnView> {
         });
       }));
     }
+    children.add(ConstrainedBox(
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 3),
+      child: ListView(
+        shrinkWrap: true,
+        children: scrollChildren,
+      ),
+    ));
     if (_question._questionType == QuestionType.MULTIPLE_ANSWER) {
       children.add(SizedBox(
         height: 15.0,
@@ -133,8 +146,7 @@ class _LearnViewState extends State<LearnView> {
               setState(() {
                 if (_question._nextQuestion != null)
                   _question = _question._nextQuestion;
-                if (okEnabled)
-                  _question._callback(context);
+                if (okEnabled) _question._callback(context);
               });
             }),
           ],
