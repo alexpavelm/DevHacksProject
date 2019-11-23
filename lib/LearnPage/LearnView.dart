@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bubble/bubble.dart';
+import 'package:devhacks_app/BottomNavBar.dart';
+
+enum LearnType {ONBOARDING, LEARN}
 
 class LearnView extends StatefulWidget {
   static bool stocks = false;
@@ -14,11 +17,29 @@ class LearnView extends StatefulWidget {
       text: "What do you want to invest in?",
       questionType: QuestionType.MULTIPLE_ANSWER,
       answers: [
-        Answer(text: "Stocks", callback: () { stocks = !stocks; }),
-        Answer(text: "Bonds", callback: () { bonds = !bonds; }),
-        Answer(text: "ETFs", callback: () { etfs = !etfs; })
+        Answer(
+            text: "Stocks",
+            callback: (_) {
+              stocks = !stocks;
+            }),
+        Answer(
+            text: "Bonds",
+            callback: (_) {
+              bonds = !bonds;
+            }),
+        Answer(
+            text: "ETFs",
+            callback: (_) {
+              etfs = !etfs;
+            })
       ],
-      nextQuestion: ready);
+      callback: (context) {
+        print("HELLO");
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BottomNavBar(0)),
+        );
+      });
   static Question risk = Question(
       text: "What kind of risk are you willing to take?",
       details: "Please note that a higher risk often leads to a higher reward.",
@@ -34,8 +55,17 @@ class LearnView extends StatefulWidget {
         Answer(text: "No", nextQuestion: risk)
       ]);
 
+  Question question;
+
+  LearnView(LearnType type) {
+    if (type == LearnType.ONBOARDING)
+      question = start;
+    else
+      question = Question(text: "Start learning now");
+  }
+
   @override
-  _LearnViewState createState() => _LearnViewState(start);
+  _LearnViewState createState() => _LearnViewState(question);
 }
 
 enum QuestionType { MULTIPLE_ANSWER, SINGLE_ANSWER }
@@ -46,13 +76,15 @@ class Question {
   List<Answer> _answers;
   QuestionType _questionType;
   Question _nextQuestion; // used for multiple answer
+  Function(BuildContext) _callback; // used for multiple answer
 
   Question(
       {String text,
       String details = null,
       List<Answer> answers = null,
       QuestionType questionType = QuestionType.SINGLE_ANSWER,
-      Question nextQuestion = null}) {
+      Question nextQuestion = null,
+      Function(BuildContext) callback = null}) {
     _text = text;
     _details = details;
     if (answers == null)
@@ -61,6 +93,10 @@ class Question {
       _answers = answers;
     _questionType = questionType;
     _nextQuestion = nextQuestion;
+    if (callback == null)
+      _callback = (context) {};
+    else
+      _callback = callback;
   }
 }
 
@@ -68,14 +104,17 @@ class Answer {
   String _text;
   Question _nextQuestion;
   bool _selected;
-  GestureTapCallback _callback;
+  Function(BuildContext) _callback;
 
-  Answer({String text, Question nextQuestion = null, GestureTapCallback callback = null}) {
+  Answer(
+      {String text,
+      Question nextQuestion = null,
+      Function(BuildContext) callback = null}) {
     _text = text;
     _nextQuestion = nextQuestion;
     _selected = false;
     if (callback == null)
-      _callback = () {};
+      _callback = (context) {};
     else
       _callback = callback;
   }
@@ -126,6 +165,7 @@ class _LearnViewState extends State<LearnView> {
             answer._selected = !answer._selected;
           else if (answer._nextQuestion != null)
             _question = answer._nextQuestion;
+          answer._callback(context);
         });
       }));
     }
@@ -135,25 +175,30 @@ class _LearnViewState extends State<LearnView> {
       ));
       bool okEnabled = false;
       for (Answer ans in _question._answers) {
-        if (ans._selected)
-          okEnabled = true;
+        if (ans._selected) okEnabled = true;
       }
-      children.add(Row(
+      print("Ok enabled = $okEnabled");
+      children.add(
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              getButtonUI("OK", okEnabled, () {
-                setState(() {
-                  if (okEnabled && _question._nextQuestion != null)
-                    _question = _question._nextQuestion;
-                });
-              }),
-            ],
-          ),
+          children: <Widget>[
+            getButtonUI("OK", okEnabled, () {
+              setState(() {
+                if (_question._nextQuestion != null)
+                  _question = _question._nextQuestion;
+                if (okEnabled)
+                  _question._callback(context);
+              });
+            }),
+          ],
+        ),
       );
     }
 
     return Container(
-        padding: EdgeInsets.all(10.0), child: Column(crossAxisAlignment: CrossAxisAlignment.center,children: children));
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center, children: children));
   }
 
   Widget getButtonUI(String txt, bool selected, GestureTapCallback onTap) {
@@ -209,7 +254,7 @@ class _LearnViewState extends State<LearnView> {
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.only(left: 8.0, right: 8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[

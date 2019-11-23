@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'BottomNavBar.dart';
 import 'Global.dart';
+import 'LearnPage/LearnView.dart';
 import 'Widgets/FormCard.dart';
 import 'Widgets/SocialIcons.dart';
 import 'CustomIcons.dart';
 
 class LoginView extends StatefulWidget {
-
   @override
   _LoginViewState createState() => new _LoginViewState();
 }
@@ -15,11 +15,24 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   var global = Global();
   bool _isSelected = false;
+  static bool previouslyLoggedIn = false;
 
   void _radio() {
     setState(() {
       _isSelected = !_isSelected;
     });
+  }
+
+  void login() {
+    if (previouslyLoggedIn)
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BottomNavBar(1)),
+      );
+    else
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LearnView(LearnType.ONBOARDING)));
+    previouslyLoggedIn = true;
   }
 
   Widget radioButton(bool isSelected) => Container(
@@ -79,21 +92,17 @@ class _LoginViewState extends State<LoginView> {
                         shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(15.0),
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => BottomNavBar(3)),
-                          );
-                        },
+                        onPressed: login,
                         child: Container(
                           width: 100,
                           height: 50,
                           child: Center(
                             child: Text("Sign in",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Avenir',
-                                    fontSize: 18,)),
+                                  color: Colors.white,
+                                  fontFamily: 'Avenir',
+                                  fontSize: 18,
+                                )),
                           ),
                         ),
                       ),
@@ -103,21 +112,17 @@ class _LoginViewState extends State<LoginView> {
                         shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(15.0),
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => BottomNavBar(0)),
-                          );
-                        },
+                        onPressed: login,
                         child: Container(
                           width: 100,
                           height: 50,
                           child: Center(
                             child: Text("Guest login",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Avenir',
-                                    fontSize: 18,)),
+                                  color: Colors.white,
+                                  fontFamily: 'Avenir',
+                                  fontSize: 18,
+                                )),
                           ),
                         ),
                       ),
@@ -131,8 +136,8 @@ class _LoginViewState extends State<LoginView> {
                     children: <Widget>[
                       horizontalLine(),
                       Text("Social Login",
-                          style: TextStyle(
-                              fontSize: 16.0, fontFamily: 'Avenir')),
+                          style:
+                              TextStyle(fontSize: 16.0, fontFamily: 'Avenir')),
                       horizontalLine()
                     ],
                   ),
