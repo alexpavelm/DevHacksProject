@@ -19,6 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_screenutil: ^0.4.2
   bubble: ^1.1.9+1
   auto_size_text: ^2.1.0
 
@@ -48,9 +49,14 @@ flutter:
         - asset: fonts/AvenirNextRoundedStd-Med.ttf
         - asset: fonts/AvenirNextRoundedStd-Demi.ttf
         - asset: fonts/AvenirNextRoundedStd-Reg.ttf
+    - family: CustomIcons
+      fonts:
+        - asset: assets/CustomIcons.ttf
   assets:
-      - assets/images/
-
+    - assets/images/
+    - assets/image_01.png
+    - assets/image_02.png
+    - assets/logo.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
