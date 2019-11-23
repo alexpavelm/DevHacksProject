@@ -6,6 +6,7 @@ import 'LearnPage/LearnView.dart';
 import 'LoginPage.dart';
 import 'NewsPage/NewsView.dart';
 import 'ProfilePage/ProfileView.dart';
+import 'Global.dart';
 
 class BottomNavBar extends StatefulWidget {
   int index;
@@ -20,7 +21,7 @@ class BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _children = [
     InvestmentView(),
     NewsView(),
-    LearnView(),
+    LearnView(Global.qLearn),
     ProfileView(),
   ];
 
@@ -42,7 +43,7 @@ class BottomNavBarState extends State<BottomNavBar> {
                 icon: Icon(Icons.library_books),
               ),
               Tab(
-                icon: Icon(Icons.list),
+                icon: Icon(Icons.help),
               ),
               Tab(
                 icon: Icon(Icons.account_circle),

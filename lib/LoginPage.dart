@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'BottomNavBar.dart';
 import 'Global.dart';
+import 'LearnPage/LearnView.dart';
 import 'Widgets/FormCard.dart';
 import 'Widgets/SocialIcons.dart';
 import 'CustomIcons.dart';
@@ -17,11 +18,24 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   var global = Global();
   bool _isSelected = false;
+  static bool previouslyLoggedIn = false;
 
   void _radio() {
     setState(() {
       _isSelected = !_isSelected;
     });
+  }
+
+  void login() {
+    if (previouslyLoggedIn)
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BottomNavBar(1)),
+      );
+    else
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => LearnView(Global.qStart)));
+    previouslyLoggedIn = true;
   }
 
   Widget horizontalLine() => Padding(
@@ -64,8 +78,8 @@ class _LoginViewState extends State<LoginView> {
                     children: <Widget>[
                       horizontalLine(),
                       Text("Social Login",
-                          style: TextStyle(
-                              fontSize: 16.0, fontFamily: 'Avenir')),
+                          style:
+                              TextStyle(fontSize: 16.0, fontFamily: 'Avenir')),
                       horizontalLine()
                     ],
                   ),
