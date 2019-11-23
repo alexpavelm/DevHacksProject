@@ -30,8 +30,8 @@ class _LoginViewState extends State<LoginView> {
         MaterialPageRoute(builder: (context) => BottomNavBar(1)),
       );
     else
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LearnView(LearnType.ONBOARDING)));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => LearnView(Global.qStart)));
     previouslyLoggedIn = true;
   }
 
