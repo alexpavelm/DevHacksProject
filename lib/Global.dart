@@ -8,4 +8,6 @@ class Global {
   Global._internal();
 
   Future userID;
+  bool isLoggedIn = false;
+  bool isGuest = false;
 }

@@ -7,6 +7,8 @@ import 'Widgets/SocialIcons.dart';
 import 'CustomIcons.dart';
 
 class LoginView extends StatefulWidget {
+  bool pop = false;
+  LoginView(this.pop);
 
   @override
   _LoginViewState createState() => new _LoginViewState();
@@ -22,23 +24,6 @@ class _LoginViewState extends State<LoginView> {
     });
   }
 
-  Widget radioButton(bool isSelected) => Container(
-        width: 16.0,
-        height: 16.0,
-        padding: EdgeInsets.all(2.0),
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(width: 2.0, color: Colors.black)),
-        child: isSelected
-            ? Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, color: Colors.black),
-              )
-            : Container(),
-      );
-
   Widget horizontalLine() => Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Container(
@@ -53,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
-    return new Scaffold(
+    return !global.isLoggedIn ? Scaffold(
       resizeToAvoidBottomPadding: true,
       body: Stack(
         fit: StackFit.expand,
@@ -70,59 +55,7 @@ class _LoginViewState extends State<LoginView> {
                     padding: const EdgeInsets.only(top: 8, bottom: 8),
                     child: FormCard(),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      RaisedButton(
-                        textColor: Colors.white,
-                        color: Theme.of(context).primaryColor,
-                        shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(15.0),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => BottomNavBar(3)),
-                          );
-                        },
-                        child: Container(
-                          width: 100,
-                          height: 50,
-                          child: Center(
-                            child: Text("Sign in",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Avenir',
-                                    fontSize: 18,)),
-                          ),
-                        ),
-                      ),
-                      RaisedButton(
-                        textColor: Colors.white,
-                        color: Colors.grey,
-                        shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(15.0),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => BottomNavBar(0)),
-                          );
-                        },
-                        child: Container(
-                          width: 100,
-                          height: 50,
-                          child: Center(
-                            child: Text("Guest login",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Avenir',
-                                    fontSize: 18,)),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  loginButtons(),
                   SizedBox(
                     height: ScreenUtil.getInstance().setHeight(40),
                   ),
@@ -197,11 +130,98 @@ class _LoginViewState extends State<LoginView> {
           )
         ],
       ),
-    );
+    ) : BottomNavBar(0);
   }
 
-  Future getUser() {
-    Future a;
-    return a;
+  Widget loginButtons() {
+    return global.isGuest ? Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        RaisedButton(
+          textColor: Colors.white,
+          color: Theme.of(context).primaryColor,
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(15.0),
+          ),
+          onPressed: () {
+            setState(() {
+              global.userID = Future.delayed(new Duration(microseconds: 1));
+              global.isLoggedIn = true;
+              if(widget.pop) {
+                Navigator.pop(context);
+              }
+            });
+          },
+          child: Container(
+            width: 100,
+            height: 50,
+            child: Center(
+              child: Text("Sign in",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Avenir',
+                    fontSize: 18,)),
+            ),
+          ),
+        ),
+      ],
+    ) : Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        RaisedButton(
+          textColor: Colors.white,
+          color: Theme.of(context).primaryColor,
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(15.0),
+          ),
+          onPressed: () {
+            setState(() {
+              global.isLoggedIn = true;
+              if(widget.pop) {
+                Navigator.pop(context);
+              }
+            });
+          },
+          child: Container(
+            width: 100,
+            height: 50,
+            child: Center(
+              child: Text("Sign in",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Avenir',
+                    fontSize: 18,)),
+            ),
+          ),
+        ),
+        RaisedButton(
+          textColor: Colors.white,
+          color: Colors.grey,
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(15.0),
+          ),
+          onPressed: () {
+            setState(() {
+              global.isLoggedIn = true;
+              global.isGuest = true;
+              if(widget.pop) {
+                Navigator.pop(context);
+              }
+            });
+          },
+          child: Container(
+            width: 100,
+            height: 50,
+            child: Center(
+              child: Text("Guest login",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Avenir',
+                    fontSize: 18,)),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

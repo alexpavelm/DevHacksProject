@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
           body: SafeArea(
-            child: LoginView(),
+            child: LoginView(false),
           ),
         ));
   }
