@@ -20,7 +20,7 @@ class BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _children = [
     InvestmentView(),
     NewsView(),
-    LearnView(),
+    LearnView(LearnType.LEARN),
     ProfileView(),
   ];
 
