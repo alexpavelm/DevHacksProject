@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class InvestmentView extends StatefulWidget {
   @override
@@ -24,24 +25,26 @@ class InvestmentCategory {
 class _InvestmentViewState extends State<InvestmentView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "Investment",
-              style: TextStyle(
-                  fontFamily: 'Avenir',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 24),
+    return SafeArea(
+      child: Container(
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Investment",
+                style: TextStyle(
+                    fontFamily: 'Avenir',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: buildList(),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: buildList(),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -57,22 +60,26 @@ class _InvestmentViewState extends State<InvestmentView> {
 
     l0.add(InvestmentData("GB3:GOV", "3 month US Government Bond", 95));
     l0.add(InvestmentData("APPLE 13/23", "Apple Inc. Bond", 93));
-    l0.add(InvestmentData("Fidelity NASDAQ Composite Index", "No minimum | 0.3%", 89));
+    l0.add(InvestmentData(
+        "Fidelity NASDAQ Composite Index", "No minimum | 0.3%", 89));
 
     l2.add(InvestmentData("GB3:GOV", "3 month US Government Bond", 95));
     l2.add(InvestmentData("APPLE 13/23", "Apple Inc. Bond", 93));
     l2.add(InvestmentData("GB6:GOV", "6 month US Government Bond", 87));
 
-    l3.add(InvestmentData("Fidelity NASDAQ Composite Index", "No minimum | 0.3%", 89));
-    l3.add(InvestmentData("Vanguard Growth Index", "\$3,000 minimum | 0.17% return", 83));
-    l3.add(InvestmentData("Vanguard High Dividend Yield Index", "\$3,000 minimum | 0.15%", 79));
+    l3.add(InvestmentData(
+        "Fidelity NASDAQ Composite Index", "No minimum | 0.3%", 89));
+    l3.add(InvestmentData(
+        "Vanguard Growth Index", "\$3,000 minimum | 0.17% return", 83));
+    l3.add(InvestmentData(
+        "Vanguard High Dividend Yield Index", "\$3,000 minimum | 0.15%", 79));
 
     l4.add(InvestmentData("CubeSmart", "+3.6%", 84));
     l4.add(InvestmentData("Crown Castle International", "+3.3%", 81));
     l4.add(InvestmentData("Equity LifeStyle Properties", "+1.8%", 78));
 
-
-    l5.add(InvestmentData("Fidelity ZERO Large Cap Index", "0% expense ratio", 73));
+    l5.add(InvestmentData(
+        "Fidelity ZERO Large Cap Index", "0% expense ratio", 73));
     l5.add(InvestmentData("Vanguard S&P 500 ETF", "0.04% expense ration", 71));
     l5.add(InvestmentData("SPDR S&P 500 ETF Trust", "0.09% expense ratio", 69));
 
@@ -101,8 +108,9 @@ class _InvestmentViewState extends State<InvestmentView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(left:5.0,bottom: 5),
+            padding: const EdgeInsets.only(left: 5.0, bottom: 5),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
                   title,
@@ -114,6 +122,11 @@ class _InvestmentViewState extends State<InvestmentView> {
                 ),
                 //icon
 
+                Padding(
+                  padding: const EdgeInsets.only(right:4.0),
+                  child: Icon(FontAwesomeIcons.questionCircle,
+                  color:Colors.black54),
+                ),
               ],
             ),
           ),
@@ -147,7 +160,6 @@ class _InvestmentViewState extends State<InvestmentView> {
                             fontSize: 18,
                             fontWeight: FontWeight.w500),
                         maxLines: 1,
-
                       ),
                       Container(
                         alignment: Alignment(-1, 0),
@@ -188,21 +200,15 @@ class _InvestmentViewState extends State<InvestmentView> {
   }
 
   Widget seeMoreCard() {
-    return Card(
-      child: Container(
-        alignment: Alignment(0,0),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-            "See more",
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: Center(
+        child: Text("See more...",
             style: TextStyle(
+              color: Theme.of(context).primaryColor,
               fontFamily: 'Avenir',
               fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
-          ),
-        ),
+            )),
       ),
     );
   }
