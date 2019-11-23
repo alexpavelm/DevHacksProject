@@ -106,27 +106,25 @@ class _LearnViewState extends State<LearnView> {
 //      nip: BubbleNip.leftBottom,
         color: Colors.white,
         elevation: 1,
-        margin: BubbleEdges.only(top: 20.0, bottom: 20.0),
+        margin: BubbleEdges.only(top: 10.0, bottom: 10.0),
         alignment: Alignment.centerLeft,
         shadowColor: Colors.blue);
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/stonks.png"),
-              fit: BoxFit.fitWidth,
-              alignment: Alignment.bottomLeft),
-        ),
+        padding: EdgeInsets.all(8.0),
         child: Column(
-          verticalDirection: VerticalDirection.up,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            SizedBox(
-              height: 240.0,
-            ),
             Bubble(style: styleTutorial, child: getContent()),
+
+            Container(
+              height: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/stonks.png"),
+                      alignment: Alignment.bottomLeft),
+                )),
           ],
         ),
       ),
