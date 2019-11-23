@@ -23,6 +23,7 @@ class InvestmentCategory {
 }
 
 class _InvestmentViewState extends State<InvestmentView> {
+  List<InvestmentData>_moreList = new List();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -80,7 +81,7 @@ class _InvestmentViewState extends State<InvestmentView> {
 
     l5.add(InvestmentData(
         "Fidelity ZERO Large Cap Index", "0% expense ratio", 73));
-    l5.add(InvestmentData("Vanguard S&P 500 ETF", "0.04% expense ration", 71));
+    l5.add(InvestmentData("Vanguard S&P 500 ETF", "0.04% expense ratio", 71));
     l5.add(InvestmentData("SPDR S&P 500 ETF Trust", "0.09% expense ratio", 69));
 
     l1.add(InvestmentData("NIKE, Inc.", "+1.18%", 68));
@@ -123,9 +124,9 @@ class _InvestmentViewState extends State<InvestmentView> {
                 //icon
 
                 Padding(
-                  padding: const EdgeInsets.only(right:4.0),
+                  padding: const EdgeInsets.only(right: 4.0),
                   child: Icon(FontAwesomeIcons.questionCircle,
-                  color:Colors.black54),
+                      color: Colors.black54),
                 ),
               ],
             ),
@@ -134,7 +135,16 @@ class _InvestmentViewState extends State<InvestmentView> {
           investCard(l[0].name, l[0].description, l[0].points),
           investCard(l[1].name, l[1].description, l[1].points),
           investCard(l[2].name, l[2].description, l[2].points),
-          seeMoreCard(),
+          InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ScrollingListViewInvestments(title)),
+                );
+              },
+              child: seeMoreCard()),
         ],
       ),
     );
@@ -149,7 +159,7 @@ class _InvestmentViewState extends State<InvestmentView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  width: MediaQuery.of(context).size.width-126,
+                  width: MediaQuery.of(context).size.width - 142,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -222,4 +232,36 @@ class _InvestmentViewState extends State<InvestmentView> {
     }
     return Colors.red;
   }
+
+  Widget ScrollingListViewInvestments(String title) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: _buildSuggestions(),
+    );
+  }
+
+
+
+Widget _buildSuggestions() {
+  return ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: /*1*/ (context, i) {
+        if (i >= _moreList.length) {
+          _moreList.addAll(generateInvestmentData().take(5)); /*4*/
+        }
+        return investCard(_moreList[i].name,_moreList[i].description,_moreList[i].points);
+      });
+}
+
+Iterable<InvestmentData> generateInvestmentData() sync*{
+    while(true){
+      InvestmentData a = InvestmentData(
+          "Fidelity NASDAQ Composite Index", "No minimum | 0.3%", 89);
+      yield a;
+    }
+}
+
+
 }
