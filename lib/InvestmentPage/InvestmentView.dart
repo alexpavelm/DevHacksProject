@@ -149,7 +149,7 @@ class _InvestmentViewState extends State<InvestmentView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  width: 280,
+                  width: MediaQuery.of(context).size.width-126,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
