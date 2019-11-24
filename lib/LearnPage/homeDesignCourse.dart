@@ -131,10 +131,10 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
       child: Container(
         decoration: new BoxDecoration(
             color: isSelected
-                ? DesignCourseAppTheme.nearlyBlue
+                ? Theme.of(context).primaryColor
                 : DesignCourseAppTheme.nearlyWhite,
             borderRadius: BorderRadius.all(Radius.circular(24.0)),
-            border: new Border.all(color: DesignCourseAppTheme.nearlyBlue)),
+            border: new Border.all(color: Theme.of(context).primaryColor)),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
@@ -159,7 +159,7 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
                     letterSpacing: 0.27,
                     color: isSelected
                         ? DesignCourseAppTheme.nearlyWhite
-                        : DesignCourseAppTheme.nearlyBlue,
+                        : Theme.of(context).primaryColor,
                   ),
                 ),
               ),

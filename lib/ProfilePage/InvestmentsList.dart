@@ -28,6 +28,31 @@ class _InvestmentsListState extends State<InvestmentsList> {
               key: Key(item.name),
               // Provide a function that tells the app
               // what to do after an item has been swiped away.
+              confirmDismiss: (DismissDirection direction) async {
+                final bool res = await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Confirm"),
+                      content: const Text("Are you sure you wish to sell this item?"),
+                      actions: <Widget>[
+                        FlatButton(
+                            onPressed: () {
+
+                              return Navigator.of(context).pop(true);
+                            },
+                            child: const Text("SELL")
+                        ),
+                        FlatButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: const Text("CANCEL"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                return res;
+              },
               onDismissed: (direction) {
                 // Remove the item from the data source.
                 setState(() {
@@ -37,8 +62,14 @@ class _InvestmentsListState extends State<InvestmentsList> {
                 });
 
                 // Then show a snackbar.
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text(item.name + " sold, " + profit.toStringAsPrecision(2) + "RON profit made", textAlign: TextAlign.center,)));
+                Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                  item.name +
+                      " sold, £" +
+                      profit.toStringAsPrecision(2) +
+                      " profit made",
+                  textAlign: TextAlign.center,
+                )));
               },
               // Show a red background as the item is swiped away.
               background: Container(
@@ -48,24 +79,18 @@ class _InvestmentsListState extends State<InvestmentsList> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(right: 20),
-                      child: profit >= 0
-                          ? Text("+" + profit.toStringAsPrecision(2),
-                              style: TextStyle(
-                                  fontFamily: 'Avenir',
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white))
-                          : Text(profit.toStringAsPrecision(2),
-                              style: TextStyle(
-                                  fontFamily: 'Avenir',
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white)),
+                      child: Text("SELL",
+                          style: TextStyle(
+                              fontFamily: 'Avenir',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white)),
                     ),
                   ],
                 ),
               ),
-              child: investCard(global.invested[index].name, item.description, item.currentPrice),
+              child: investCard(global.invested[index].name, item.description,
+                  item.currentPrice, profit),
             );
           },
         ),
@@ -73,7 +98,7 @@ class _InvestmentsListState extends State<InvestmentsList> {
     );
   }
 
-  Widget investCard(title, description, sum) {
+  Widget investCard(title, description, sum, profit) {
     return Card(
       child: Container(
         child: Padding(
@@ -106,12 +131,29 @@ class _InvestmentsListState extends State<InvestmentsList> {
                     ],
                   ),
                 ),
-                Text(
-                  "£" + sum.toString(),
-                  style: TextStyle(
-                      fontFamily: 'Avenir',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w100),
+                Column(
+                  children: <Widget>[
+                    Text(
+                      "£" + sum.toString(),
+                      style: TextStyle(
+                          fontFamily: 'Avenir',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w100),
+                    ),
+                    profit >= 0
+                        ? Text("+£" + profit.toStringAsPrecision(2),
+                            style: TextStyle(
+                                fontFamily: 'Avenir',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey))
+                        : Text("£" + profit.toStringAsPrecision(2),
+                            style: TextStyle(
+                                fontFamily: 'Avenir',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey)),
+                  ],
                 ),
               ]),
         ),

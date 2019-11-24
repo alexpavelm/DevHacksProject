@@ -26,14 +26,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     if(!global.loaded) {
       global.loaded = true;
-      global.invested.add(InvestedData("stonks", "wow stock", 5.7, 6.1));
-      global.invested.add(InvestedData("stonks double", "wow stock double", 11.6, 7.3));
-      global.invested.add(InvestedData("hahahahah", "such wow", 27.6, 83.1));
+      global.invested.add(InvestedData("NIKE, Inc.", "+1.18%", 68.8, 68));
+      global.invested.add(InvestedData("Starbucks Corporation", "+0.72%", 67.48, 67));
+      global.invested.add(InvestedData("Burberry", "-0.11%", 33.96, 34));
     }
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primaryColor: DesignCourseAppTheme.nearlyBlue
+          primaryColor: Color.fromRGBO(240, 141, 79, 1)
         ),
         home: Scaffold(
           body: SafeArea(

@@ -118,7 +118,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                     fontWeight: FontWeight.w200,
                                     fontSize: 22,
                                     letterSpacing: 0.27,
-                                    color: DesignCourseAppTheme.nearlyBlue,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                                 Container(
@@ -136,7 +136,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                       ),
                                       Icon(
                                         Icons.star,
-                                        color: DesignCourseAppTheme.nearlyBlue,
+                                        color: Theme.of(context).primaryColor,
                                         size: 24,
                                       ),
                                     ],
@@ -206,7 +206,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                       ),
                                       child: Icon(
                                         Icons.add,
-                                        color: DesignCourseAppTheme.nearlyBlue,
+                                        color: Theme.of(context).primaryColor,
                                         size: 28,
                                       ),
                                     ),
@@ -218,14 +218,13 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                     child: Container(
                                       height: 48,
                                       decoration: BoxDecoration(
-                                        color: DesignCourseAppTheme.nearlyBlue,
+                                        color: Theme.of(context).primaryColor,
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(16.0),
                                         ),
                                         boxShadow: <BoxShadow>[
                                           BoxShadow(
-                                              color: DesignCourseAppTheme
-                                                  .nearlyBlue
+                                              color: Theme.of(context).primaryColor
                                                   .withOpacity(0.5),
                                               offset: Offset(1.1, 1.1),
                                               blurRadius: 10.0),
@@ -268,7 +267,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                 scale: new CurvedAnimation(
                     parent: animationController, curve: Curves.fastOutSlowIn),
                 child: Card(
-                  color: DesignCourseAppTheme.nearlyBlue,
+                  color: Theme.of(context).primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50.0)),
                   elevation: 10.0,
@@ -341,7 +340,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                   letterSpacing: 0.27,
-                  color: DesignCourseAppTheme.nearlyBlue,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               Text(

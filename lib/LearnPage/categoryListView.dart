@@ -174,8 +174,7 @@ class CategoryView extends StatelessWidget {
                                                 ),
                                                 Container(
                                                   decoration: BoxDecoration(
-                                                    color: DesignCourseAppTheme
-                                                        .nearlyBlue,
+                                                    color: Theme.of(context).primaryColor,
                                                     borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(

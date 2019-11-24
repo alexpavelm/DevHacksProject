@@ -686,7 +686,7 @@ class CustomDialog extends StatelessWidget {
                     onTap: () {
                       Global().money -= int.parse(myController.text);
                       InvestedData a = InvestedData(
-                          title, description, buttonText, buttonText);
+                          title, description, double.parse(myController.text), double.parse(myController.text));
                       Global().invested.add(a);
                       Navigator.of(context).pop(); // To close the dialog
                     },
