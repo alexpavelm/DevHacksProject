@@ -43,17 +43,34 @@ class _LoginViewState extends State<LoginView> {
                 SingleChildScrollView(
                   child: Padding(
                     padding:
-                        EdgeInsets.only(left: 28.0, right: 28.0, top: 60.0),
+                        EdgeInsets.only(left: 28.0, right: 28.0, top: 00.0),
                     child: Column(
                       children: <Widget>[
                         SizedBox(
-                          height: ScreenUtil.getInstance().setHeight(180),
+                          height: ScreenUtil.getInstance().setHeight(50),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              height: 100,
+                              child: Image.asset("assets/images/camel.png", color: Theme.of(context).primaryColor,),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 50.0),
+                              child: Text("sofos", style: TextStyle(fontFamily: 'Avenir', fontSize: 45, fontWeight: FontWeight.w500, color: Colors.black),),
+                            ),
+
+                          ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 8, bottom: 8),
+                          padding: const EdgeInsets.only(top: 0, bottom: 8),
                           child: FormCard(),
                         ),
-                        loginButtons(),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: loginButtons(),
+                        ),
                         SizedBox(
                           height: ScreenUtil.getInstance().setHeight(40),
                         ),
