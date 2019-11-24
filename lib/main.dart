@@ -5,6 +5,7 @@ import 'BottomNavBar.dart';
 import 'Global.dart';
 import 'InvestmentPage/InvestedData.dart';
 import 'LoginPage.dart';
+import 'LearnPage/designCourseAppTheme.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: DesignCourseAppTheme.nearlyBlue
         ),
         home: Scaffold(
           body: SafeArea(

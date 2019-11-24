@@ -18,8 +18,9 @@ class TabBarProfile extends StatelessWidget {
                 Tab(child: Text("Investments", style: TextStyle(fontFamily: 'Avenir', fontSize: 20,),),),
                 Tab(child: Text("Achievements", style: TextStyle(fontFamily: 'Avenir', fontSize: 20),),),
               ],
-              labelColor: Colors.blue,
+              labelColor: Theme.of(context).primaryColor,
               unselectedLabelColor: Colors.grey,
+              indicatorColor: Theme.of(context).primaryColor,
             ),
           ),
           Container(

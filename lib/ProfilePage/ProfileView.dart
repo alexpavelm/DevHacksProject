@@ -63,7 +63,7 @@ class _ProfileViewState extends State<ProfileView>
                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: Colors.blueAccent, width: 2),
+                                        color: Theme.of(context).primaryColor, width: 2),
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   child: CircleAvatar(
