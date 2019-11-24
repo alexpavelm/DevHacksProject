@@ -64,7 +64,6 @@ class Question {
         Answer(text: "High risk"),
       ]);
 
-
   // Learn (starts at qLearn)
   static Question qLearn = Question(
       text:
@@ -118,14 +117,36 @@ class Question {
       Question(text: "How familiar are you with investing?", answers: [
     Answer(
       text: "Not very familiar",
-      nextQuestion: qNotFamiliar1,
+      nextQuestion: qLiasion,
     ),
     Answer(
       text: "I am well accustomed to it",
-      nextQuestion: qInvestments,
+      nextQuestion: qInvestments2,
     ),
   ]);
-  /*
+  static Question qInvestments2 = Question(
+      text: "What do you want to invest in?",
+      questionType: QuestionType.MULTIPLE_ANSWER,
+      nextQuestion: qRiskAssessment,
+      answers: [
+        Answer(
+            text: "Stocks",
+            callback: (_) {
+              Global.stocks = !Global.stocks;
+            }),
+        Answer(
+            text: "Bonds",
+            callback: (_) {
+              Global.bonds = !Global.bonds;
+            }),
+        Answer(
+            text: "ETFs",
+            callback: (_) {
+              Global.etfs = !Global.etfs;
+            })
+      ]);
+
+/*
   static Question qMainInterests = Question(
       text: "What are your main interests to invest in?",
       nextQuestion: qRiskAssessment,
@@ -205,6 +226,7 @@ class Question {
         );
       });
   static Question qLiasion = Question(
+      nextQuestion: qNotFamiliar1,
       text: "On a scale of 1-5 please answer the following questions",
       details:
           "1-strongly disagree, 2-disagree, 3-neutral, 4-agree, 5-strongly agree",
