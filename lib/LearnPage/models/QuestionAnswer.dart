@@ -216,15 +216,16 @@ class Question {
       text:
           "We have prepared some recommendations based on your preferences. We are now ready to begin investing.",
       answers: [
-        Answer(text: "Ok."),
-      ],
-      callback: (context) {
-        print("HELLO");
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => BottomNavBar(0)),
-        );
-      });
+        Answer(
+            text: "Ok.",
+            callback: (context) {
+              print("HELLO");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BottomNavBar(0)),
+              );
+            }),
+      ]);
   static Question qLiasion = Question(
       nextQuestion: qNotFamiliar1,
       text: "On a scale of 1-5 please answer the following questions",
