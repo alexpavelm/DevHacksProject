@@ -45,7 +45,7 @@ class FormCard extends StatelessWidget {
                 Text(
                   "Forgot Password?",
                   style: TextStyle(
-                      color: Colors.blue,
+                      color: Theme.of(context).primaryColor,
                       fontFamily: 'Avenir',
                       fontSize: ScreenUtil.getInstance().setSp(28)),
                 )
