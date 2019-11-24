@@ -68,8 +68,8 @@ class _ProfileViewState extends State<ProfileView>
                                   ),
                                   child: CircleAvatar(
                                     radius: 50,
-                                    backgroundImage: NetworkImage(
-                                      "https://avatars1.githubusercontent.com/u/31440314?s=460&v=4",
+                                    backgroundImage: AssetImage(
+                                      "assets/images/userImage.jpeg",
                                     ),
                                   ),
                                 ),
