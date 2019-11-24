@@ -3,6 +3,8 @@ import 'designCourseAppTheme.dart';
 import 'categoryListView.dart';
 import 'popularCourseListView.dart';
 import 'courseInfoScreen.dart';
+import 'LearnView.dart';
+import 'models/QuestionAnswer.dart';
 
 class DesignCourseHomeScreen extends StatefulWidget {
   @override
@@ -111,7 +113,7 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CourseInfoScreen(),
+        builder: (context) => LearnView(Question.qLearn),
       ),
     );
   }

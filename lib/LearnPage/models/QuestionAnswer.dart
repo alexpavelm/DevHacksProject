@@ -84,7 +84,7 @@ class Question {
               Answer(text: "REIT"),
               Answer(text: "Index Funds"),
               Answer(text: "Startups")
-            ]))
+            ], nextQuestion: Question(text: "GG!")))
   ]);
 }
 

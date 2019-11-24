@@ -61,8 +61,11 @@ class _LearnViewState extends State<LearnView> {
         setState(() {
           if (_question.questionType == QuestionType.MULTIPLE_ANSWER)
             answer.selected = !answer.selected;
+          else if (_question.nextQuestion != null)
+            _question = _question.nextQuestion;
           else if (answer.nextQuestion != null) _question = answer.nextQuestion;
           answer.callback(context);
+          _question.callback(context);
         });
       }));
     }
