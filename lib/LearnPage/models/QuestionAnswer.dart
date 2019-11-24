@@ -109,9 +109,14 @@ class Question {
           nextQuestion: qStart2,
         ),
         Answer(
-          text: "No",
-          nextQuestion: qFinalNew,
-        ),
+            text: "No",
+            callback: (context) {
+              print("HELLO");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BottomNavBar(0)),
+              );
+            }),
       ]);
   static Question qStart2 =
       Question(text: "How familiar are you with investing?", answers: [
