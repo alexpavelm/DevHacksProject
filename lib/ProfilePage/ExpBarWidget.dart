@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class ExpBarWidget extends StatelessWidget {
   final AnimationController animationController;
   final Animation animation;
+  final double progress;
+  final String text;
 
   const ExpBarWidget(
-      {Key key, this.animationController, this.animation})
+      {Key key, this.animationController, this.animation, this.progress, this.text})
       : super(key: key);
 
   @override
@@ -32,19 +34,19 @@ class ExpBarWidget extends StatelessWidget {
                         width: 150,
                         decoration: BoxDecoration(
                           color:
-                          Colors.white,
+                          Colors.grey.shade200,
                           borderRadius: BorderRadius.all(
                               Radius.circular(4.0)),
                         ),
                         child: Row(
                           children: <Widget>[
                             Container(
-                              width: ((150 / 1.2) * animation.value),
+                              width: ((150 * progress) * animation.value),
                               height: 4,
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(colors: [
-                                  Colors.blue,
-                                  Colors.blue
+                                  Colors.green,
+                                  Colors.green
                                       .withOpacity(0.5),
                                 ]),
                                 borderRadius: BorderRadius.all(
@@ -58,7 +60,7 @@ class ExpBarWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 6),
                       child: Text(
-                        '127 exp points until level 8',
+                        text,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Avenir',

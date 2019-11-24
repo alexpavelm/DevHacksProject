@@ -24,7 +24,7 @@ class TabBarProfile extends StatelessWidget {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 300,
+            height: 380,
             child: TabBarView(
               children: [
                 InvestmentsList(),

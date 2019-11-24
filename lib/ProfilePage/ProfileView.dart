@@ -51,7 +51,7 @@ class _ProfileViewState extends State<ProfileView>
                 Container(
                     color: Scaffold.of(context).widget.backgroundColor,
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 25.0, bottom: 25),
+                      padding: const EdgeInsets.only(top: 40.0, bottom: 0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -120,6 +120,8 @@ class _ProfileViewState extends State<ProfileView>
                                                   curve:
                                                       Curves.fastOutSlowIn))),
                                       animationController: controller,
+                                      progress: .8,
+                                      text: '127 exp points until level 8',
                                     ),
                                   ],
                                 ),
@@ -131,7 +133,7 @@ class _ProfileViewState extends State<ProfileView>
                       ),
                     )),
                 Container(
-                  height: 400,
+                  height: 470,
                   child: TabBarProfile(),
                 )
               ],
