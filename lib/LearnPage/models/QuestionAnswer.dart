@@ -30,6 +30,7 @@ class Question {
   static Question qInvestments = Question(
       text: "What do you want to invest in?",
       questionType: QuestionType.MULTIPLE_ANSWER,
+      nextQuestion: qRiskAssessment,
       answers: [
         Answer(
             text: "Stocks",
@@ -63,12 +64,6 @@ class Question {
         Answer(text: "High risk"),
       ]);
 
-  /*static Question qStart = Question(
-      text: "Do you already know what you want to invest in?",
-      answers: [
-        Answer(text: "Yes", nextQuestion: qInvestments),
-        Answer(text: "No", nextQuestion: qRisk)
-      ]);*/
 
   // Learn (starts at qLearn)
   static Question qLearn = Question(
@@ -106,7 +101,20 @@ class Question {
       ]);
 
   //new list
-  static Question qStart =
+  static Question qStart = Question(
+      text:
+          "Would you like to answer some questions to receive personalized recommendations?",
+      answers: [
+        Answer(
+          text: "Yes",
+          nextQuestion: qStart2,
+        ),
+        Answer(
+          text: "No",
+          nextQuestion: qFinalNew,
+        ),
+      ]);
+  static Question qStart2 =
       Question(text: "How familiar are you with investing?", answers: [
     Answer(
       text: "Not very familiar",
@@ -114,9 +122,10 @@ class Question {
     ),
     Answer(
       text: "I am well accustomed to it",
-      nextQuestion: qMainInterests,
+      nextQuestion: qInvestments,
     ),
   ]);
+  /*
   static Question qMainInterests = Question(
       text: "What are your main interests to invest in?",
       nextQuestion: qRiskAssessment,
@@ -128,7 +137,7 @@ class Question {
         Answer(text: "Index Funds"),
         Answer(text: "Startups"),
         Answer(text: "ETFs"),
-      ]);
+      ]);*/
   static Question qRiskAssessment = Question(
       text: "How risk-tolerant are you?",
       nextQuestion: qFrequencyOfInvestment,
@@ -172,9 +181,9 @@ class Question {
         Answer(text: "No, I only care about dividends"),
       ]);
   static Question qForeign = Question(
-      text:
-          "Do you tolerate foreign assets? (1-Not at all, 5-Yes, I prefer them)",
+      text: "Do you tolerate foreign assets?",
       nextQuestion: qFinalNew,
+      details: "1-Not at all, 5-Yes, I prefer them",
       answers: [
         Answer(text: "1"),
         Answer(text: "2"),
@@ -195,7 +204,11 @@ class Question {
           MaterialPageRoute(builder: (context) => BottomNavBar(0)),
         );
       });
-
+  static Question qLiasion = Question(
+      text: "On a scale of 1-5 please answer the following questions",
+      details:
+          "1-strongly disagree, 2-disagree, 3-neutral, 4-agree, 5-strongly agree",
+      answers: [Answer(text: "Ok.")]);
   static Question qNotFamiliar1 = Question(
       text:
           "I remain calm and relaxed in situations in which most people would become fearful, upset, or stressed.",

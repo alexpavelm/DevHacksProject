@@ -93,13 +93,17 @@ class _InvestmentViewState extends State<InvestmentView> {
     l1.add(InvestmentData("Starbucks Corporation", "+0.72%", 67));
     l1.add(InvestmentData("Apple Inc.", "-0.23%", 40));
 
+    l6.add(InvestmentData("2X ALPHABET ETP", "+0.06%", 65));
+    l6.add(InvestmentData("BOOST EN INDMET", "+0.11%", 62));
+    l6.add(InvestmentData("BOOSTITBL", "+0.43%", 57));
+
     titles.add(InvestmentCategory("Recommended For You", l0));
     titles.add(InvestmentCategory("Stocks", l1));
     titles.add(InvestmentCategory("Bonds", l2));
     titles.add(InvestmentCategory("Mutual Funds", l3));
     titles.add(InvestmentCategory("REIT", l4));
     titles.add(InvestmentCategory("Index Funds", l5));
-    //titles.add(InvestmentCategory("ETF", l6));
+    titles.add(InvestmentCategory("ETF", l6));
 
     return Column(
       children:

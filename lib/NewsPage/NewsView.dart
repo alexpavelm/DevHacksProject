@@ -57,6 +57,7 @@ class _NewsViewState extends State<NewsView> {
     List<InvestmentData> l3 = new List();
     List<InvestmentData> l4 = new List();
     List<InvestmentData> l5 = new List();
+    List<InvestmentData> l6 = new List();
 
     l0.add(InvestmentData(
         "How Do Financial Advisors Make Money?",
@@ -123,13 +124,23 @@ class _NewsViewState extends State<NewsView> {
         "CNBC 7 hours ago",
         "stock2.png",
         "https://www.cnbc.com/2019/11/23/wall-streets-stock-forecasters-see-just-a-5percent-gain-in-2020.html"));
-
+    l6.add(InvestmentData(
+        "Swiss SIX Exchange Lists Tezos ETP With Staking Rewards",
+        "CoinDesk 10 days ago",
+        "etp1.jpg",
+        "https://www.coindesk.com/swiss-six-exchange-lists-tezos-etp-with-staking-rewards"));
+    l6.add(InvestmentData(
+        "GraniteShares launches in UK with launch of ETP platform",
+        "International Investment 12 days ago",
+        "etp2.jpg",
+        "https://www.internationalinvestment.net/news/4006781/graniteshares-launches-uk-launch-etp-platform"));
     titles.add(InvestmentCategory("Top Stories", l0));
     titles.add(InvestmentCategory("Stocks", l1));
     titles.add(InvestmentCategory("Bonds", l2));
     titles.add(InvestmentCategory("Mutual Funds", l3));
     titles.add(InvestmentCategory("REIT", l4));
     titles.add(InvestmentCategory("Index Funds", l5));
+    titles.add(InvestmentCategory("ETF", l6));
 
     return Column(
       children:
@@ -183,7 +194,7 @@ class _NewsViewState extends State<NewsView> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width-164,
+                    width: MediaQuery.of(context).size.width - 164,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
