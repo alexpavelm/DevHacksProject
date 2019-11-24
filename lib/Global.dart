@@ -1,3 +1,4 @@
+import 'InvestmentPage/InvestedData.dart';
 import 'LearnPage/LearnView.dart';
 import 'package:flutter/material.dart';
 import 'BottomNavBar.dart';
@@ -68,4 +69,8 @@ class Global {
   static Question qLearn = Question(text: 'Start learning now!');
   bool isLoggedIn = false;
   bool isGuest = false;
+  bool loaded = false;
+  double money = 150;
+  double profit = 0;
+  List<InvestedData> invested = new List();
 }

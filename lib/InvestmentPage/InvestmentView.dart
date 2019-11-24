@@ -2,17 +2,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'InvestmentData.dart';
+
 class InvestmentView extends StatefulWidget {
   @override
   _InvestmentViewState createState() => _InvestmentViewState();
-}
-
-class InvestmentData {
-  String name;
-  String description;
-  int points;
-
-  InvestmentData(this.name, this.description, this.points);
 }
 
 class InvestmentCategory {
