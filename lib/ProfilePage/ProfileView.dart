@@ -133,7 +133,7 @@ class _ProfileViewState extends State<ProfileView>
                       ),
                     )),
                 Container(
-                  height: 470,
+                  height: MediaQuery.of(context).size.height * (2.0 / 3.0),
                   child: TabBarProfile(),
                 )
               ],
