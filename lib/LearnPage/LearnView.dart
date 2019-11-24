@@ -1,70 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:bubble/bubble.dart';
-import 'package:devhacks_app/BottomNavBar.dart';
+import 'models/QuestionAnswer.dart';
 
 enum LearnType { ONBOARDING, LEARN }
 
 class LearnView extends StatefulWidget {
-  Question question;
+  final Question question;
 
-  LearnView(Question question) {
-    this.question = question;
-  }
+  LearnView(this.question);
 
   @override
   _LearnViewState createState() => _LearnViewState(question);
-}
-
-enum QuestionType { MULTIPLE_ANSWER, SINGLE_ANSWER }
-
-class Question {
-  String _text;
-  String _details;
-  List<Answer> _answers;
-  QuestionType _questionType;
-  Question _nextQuestion; // used for multiple answer
-  Function(BuildContext) _callback; // used for multiple answer
-
-  Question(
-      {String text,
-      String details = null,
-      List<Answer> answers = null,
-      QuestionType questionType = QuestionType.SINGLE_ANSWER,
-      Question nextQuestion = null,
-      Function(BuildContext) callback = null}) {
-    _text = text;
-    _details = details;
-    if (answers == null)
-      _answers = <Answer>[];
-    else
-      _answers = answers;
-    _questionType = questionType;
-    _nextQuestion = nextQuestion;
-    if (callback == null)
-      _callback = (context) {};
-    else
-      _callback = callback;
-  }
-}
-
-class Answer {
-  String _text;
-  Question _nextQuestion;
-  bool _selected;
-  Function(BuildContext) _callback;
-
-  Answer(
-      {String text,
-      Question nextQuestion = null,
-      Function(BuildContext) callback = null}) {
-    _text = text;
-    _nextQuestion = nextQuestion;
-    _selected = false;
-    if (callback == null)
-      _callback = (context) {};
-    else
-      _callback = callback;
-  }
 }
 
 class _LearnViewState extends State<LearnView> {
@@ -86,21 +32,21 @@ class _LearnViewState extends State<LearnView> {
     List<Widget> children = <Widget>[];
     children.add(Container(
         alignment: Alignment.topLeft,
-        child: Text(_question._text, style: questionStyle)));
-    if (_question._details != null) {
+        child: Text(_question.text, style: questionStyle)));
+    if (_question.details != null) {
       children.add(SizedBox(
         height: 2.0,
       ));
       children.add(Container(
           alignment: Alignment.topLeft,
-          child: Text(_question._details, style: detailsStyle)));
+          child: Text(_question.details, style: detailsStyle)));
     }
     children.add(SizedBox(
-      height: _question._answers.length > 0 ? 5.0 : 0,
+      height: _question.answers.length > 0 ? 5.0 : 0,
     ));
     bool skip = true; // skip first padding
     List<Widget> scrollChildren = <Widget>[];
-    for (Answer answer in _question._answers) {
+    for (Answer answer in _question.answers) {
       if (!skip) {
         scrollChildren.add(SizedBox(
           height: 10.0,
@@ -108,16 +54,15 @@ class _LearnViewState extends State<LearnView> {
       }
       skip = false;
       scrollChildren.add(getButtonUI(
-          answer._text,
-          _question._questionType == QuestionType.SINGLE_ANSWER
+          answer.text,
+          _question.questionType == QuestionType.SINGLE_ANSWER
               ? true
-              : answer._selected, () {
+              : answer.selected, () {
         setState(() {
-          if (_question._questionType == QuestionType.MULTIPLE_ANSWER)
-            answer._selected = !answer._selected;
-          else if (answer._nextQuestion != null)
-            _question = answer._nextQuestion;
-          answer._callback(context);
+          if (_question.questionType == QuestionType.MULTIPLE_ANSWER)
+            answer.selected = !answer.selected;
+          else if (answer.nextQuestion != null) _question = answer.nextQuestion;
+          answer.callback(context);
         });
       }));
     }
@@ -129,13 +74,13 @@ class _LearnViewState extends State<LearnView> {
         children: scrollChildren,
       ),
     ));
-    if (_question._questionType == QuestionType.MULTIPLE_ANSWER) {
+    if (_question.questionType == QuestionType.MULTIPLE_ANSWER) {
       children.add(SizedBox(
         height: 15.0,
       ));
       bool okEnabled = false;
-      for (Answer ans in _question._answers) {
-        if (ans._selected) okEnabled = true;
+      for (Answer ans in _question.answers) {
+        if (ans.selected) okEnabled = true;
       }
       print("Ok enabled = $okEnabled");
       children.add(
@@ -144,9 +89,9 @@ class _LearnViewState extends State<LearnView> {
           children: <Widget>[
             getButtonUI("OK", okEnabled, () {
               setState(() {
-                if (_question._nextQuestion != null)
-                  _question = _question._nextQuestion;
-                if (okEnabled) _question._callback(context);
+                if (_question.nextQuestion != null)
+                  _question = _question.nextQuestion;
+                if (okEnabled) _question.callback(context);
               });
             }),
           ],
