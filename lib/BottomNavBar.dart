@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'InvestmentPage/InvestmentView.dart';
 import 'LearnPage/LearnView.dart';
+import 'LearnPage/homeDesignCourse.dart';
 import 'LearnPage/models/QuestionAnswer.dart';
 import 'LoginPage.dart';
 import 'NewsPage/NewsView.dart';
@@ -22,7 +23,7 @@ class BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _children = [
     InvestmentView(),
     NewsView(),
-    LearnView(Question.qLearn),
+    DesignCourseHomeScreen(),
     ProfileView(),
   ];
 
