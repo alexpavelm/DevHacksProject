@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'InvestmentData.dart';
+import 'package:devhacks_app/Global.dart';
 
 class InvestmentView extends StatefulWidget {
   @override
@@ -17,7 +19,9 @@ class InvestmentCategory {
 }
 
 class _InvestmentViewState extends State<InvestmentView> {
-  List<InvestmentData>_moreList = new List();
+  List<InvestmentData> _moreList = new List();
+  final myController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,6 +56,7 @@ class _InvestmentViewState extends State<InvestmentView> {
     List<InvestmentData> l3 = new List();
     List<InvestmentData> l4 = new List();
     List<InvestmentData> l5 = new List();
+    List<InvestmentData> l6 = new List();
 
     l0.add(InvestmentData("GB3:GOV", "3 month US Government Bond", 95));
     l0.add(InvestmentData("APPLE 13/23", "Apple Inc. Bond", 93));
@@ -88,6 +93,7 @@ class _InvestmentViewState extends State<InvestmentView> {
     titles.add(InvestmentCategory("Mutual Funds", l3));
     titles.add(InvestmentCategory("REIT", l4));
     titles.add(InvestmentCategory("Index Funds", l5));
+    //titles.add(InvestmentCategory("ETF", l6));
 
     return Column(
       children:
@@ -229,33 +235,458 @@ class _InvestmentViewState extends State<InvestmentView> {
 
   Widget ScrollingListViewInvestments(String title) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: _buildSuggestions(),
+      body: SafeArea(child: _buildSuggestions(title)),
     );
   }
 
+  Widget _buildSuggestions(title) {
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemBuilder: /*1*/ (context, i) {
+          if (i == 0) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                title,
+                style: TextStyle(
+                    fontFamily: 'Avenir',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24),
+              ),
+            );
+          }
+          if (i >= _moreList.length) {
+            _moreList.addAll(generateInvestmentData().take(5)); /*4*/
+          }
+          return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          launchStatsWindow(_moreList[i].name)),
+                );
+              },
+              child: investCard(_moreList[i].name, _moreList[i].description,
+                  _moreList[i].points));
+        });
+  }
 
-
-Widget _buildSuggestions() {
-  return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: /*1*/ (context, i) {
-        if (i >= _moreList.length) {
-          _moreList.addAll(generateInvestmentData().take(5)); /*4*/
-        }
-        return investCard(_moreList[i].name,_moreList[i].description,_moreList[i].points);
-      });
-}
-
-Iterable<InvestmentData> generateInvestmentData() sync*{
-    while(true){
-      InvestmentData a = InvestmentData(
-          "Fidelity NASDAQ Composite Index", "No minimum | 0.3%", 89);
+  Iterable<InvestmentData> generateInvestmentData() sync* {
+    while (true) {
+      InvestmentData a = InvestmentData("Apple Inc.", "No minimum | 0.3%", 89);
       yield a;
     }
+  }
+
+  Widget launchStatsWindow(name) {
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          child: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  name,
+                  style: TextStyle(
+                      fontFamily: 'Avenir',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 24),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _buildBuyWindow(name),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBuyWindow(name) {
+    int price = 174;
+    return Column(children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text("\$" + price.toString(),
+                  style: TextStyle(
+                      fontFamily: 'Avenir',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 24)),
+              InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => CustomDialog(
+                              title: "Succ",
+                              description: "sdad",
+                              buttonText: "",
+                            ));
+                  },
+                  child: getBuyBox("Invest"))
+            ]),
+      ),
+      getImageWidget("graph.png"),
+      getNewsInfoPage(name),
+    ]);
+  }
+
+  Widget getBuyBox(String data) {
+    return Container(
+        padding: EdgeInsets.only(left: 12, top: 5, right: 12, bottom: 5),
+        child: Text(
+          data,
+          style: TextStyle(
+            fontFamily: 'Avenir',
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: Colors.green,
+        ));
+  }
+
+  Widget getImageWidget(String data) {
+    return Container(
+      width: MediaQuery.of(context).size.width - 10,
+      height: 200,
+      child: Image.asset(
+        "assets/images/" + data,
+        scale: 0.45,
+      ),
+    );
+  }
+
+  Widget getNewsInfoPage(name) {
+    List<InvestmentDataNews> list1 = new List();
+    List<InvestmentCategoryNews> titles = new List();
+    list1.add(InvestmentDataNews(
+        "Apple expands in Austin",
+        "Apple NewsRoom 4 days ago",
+        "apple1.jpg",
+        "https://www.apple.com/newsroom/2019/11/apple-expands-in-austin/"));
+    list1.add(InvestmentDataNews(
+        "Apple pulls all customer reviews from online Apple Store",
+        "AppleInsider 3 days ago",
+        "apple2.jpg",
+        "https://appleinsider.com/articles/19/11/21/apple-pulls-all-customer-reviews-from-online-apple-store"));
+    list1.add(InvestmentDataNews(
+        "This Will Be Apple's Biggest Growth Driver (Hint: It's Not the iPhone)",
+        "The Motley Fool 2 days ago",
+        "apple3.jpg",
+        "https://www.fool.com/investing/2019/11/22/this-will-be-apples-biggest-growth-driver-going-fo.aspx"));
+    list1.add(InvestmentDataNews(
+        "Microsoft and Apple are better together",
+        "ComputerWorld 2 days ago",
+        "apple4.jpg",
+        "https://www.computerworld.com/article/3455229/microsoft-and-apple-are-better-together.html"));
+    titles.add(InvestmentCategoryNews("Apple", list1));
+    return investBlockNews(titles[0].name, titles[0].list);
+  }
+
+  Widget investBlockNews(String title, List<InvestmentDataNews> l) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0, bottom: 5, top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  title,
+                  style: TextStyle(
+                      fontFamily: 'Avenir',
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black54),
+                ),
+                //icon
+              ],
+            ),
+          ),
+          //random data
+          investCardNews(l[0].name, l[0].description, l[0].image, l[0].url),
+          investCardNews(l[1].name, l[1].description, l[1].image, l[1].url),
+          investCardNews(l[2].name, l[2].description, l[2].image, l[2].url),
+          investCardNews(l[3].name, l[3].description, l[3].image, l[3].url),
+          seeMoreCardNews(),
+        ],
+      ),
+    );
+  }
+
+  Widget investCardNews(title, description, points, url) {
+    return InkWell(
+      onTap: () {
+        _launchURL(url);
+      },
+      child: Card(
+        child: Container(
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 164,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: TextStyle(
+                              fontFamily: 'Avenir',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Container(
+                          alignment: Alignment(-1, 0),
+                          child: Text(
+                            description,
+                            style: TextStyle(
+                                fontFamily: 'Avenir',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w100),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                getImageWidgetNews(points)
+              ]),
+        ),
+      ),
+    );
+  }
+
+  Widget getImageWidgetNews(String data) {
+    return Container(
+      width: 100,
+      height: 100,
+      child: Image.asset("assets/images/" + data, fit: BoxFit.cover),
+    );
+  }
+
+  _launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  Widget seeMoreCardNews() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: Center(
+        child: Text("See more...",
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontFamily: 'Avenir',
+              fontSize: 18,
+            )),
+      ),
+    );
+  }
+
+  Widget launchBuyWindow(name, price) {
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          child: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Invest",
+                  style: TextStyle(
+                      fontFamily: 'Avenir',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 24),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _launchBuyWindowHelper(name, price),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _launchBuyWindowHelper(name, price) {
+    return Container(
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width / 2,
+          child: TextField(
+            decoration: new InputDecoration(labelText: "How Much?"),
+            keyboardType: TextInputType.number,
+          ),
+        ),
+        getBuyBoxLarge("Buy"),
+      ]),
+    );
+  }
+
+  Widget getBuyBoxLarge(String s) {
+    return Container(
+        padding: EdgeInsets.only(left: 12, top: 5, right: 12, bottom: 5),
+        child: Text(
+          s,
+          style: TextStyle(
+            fontFamily: 'Avenir',
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: Colors.green,
+        ));
+  }
 }
 
+class InvestmentDataNews {
+  String name;
+  String description;
+  String image;
+  String url;
 
+  InvestmentDataNews(this.name, this.description, this.image, this.url);
+}
+
+class InvestmentCategoryNews {
+  String name;
+  List<InvestmentDataNews> list;
+
+  InvestmentCategoryNews(this.name, this.list);
+}
+
+class CustomDialog extends StatelessWidget {
+  final String title, description, buttonText;
+  final Image image;
+  final myController = TextEditingController();
+
+  CustomDialog({
+    @required this.title,
+    @required this.description,
+    @required this.buttonText,
+    this.image,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Consts.padding),
+      ),
+      elevation: 0.0,
+      backgroundColor: Colors.transparent,
+      child: dialogContent(context),
+    );
+  }
+
+  dialogContent(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        //...bottom card part,
+        Container(
+          padding: EdgeInsets.only(
+            top: Consts.avatarRadius + Consts.padding,
+            bottom: Consts.padding,
+            left: Consts.padding,
+            right: Consts.padding,
+          ),
+          margin: EdgeInsets.only(top: Consts.avatarRadius),
+          decoration: new BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(Consts.padding),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10.0,
+                offset: const Offset(0.0, 10.0),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // To make the card compact
+            children: <Widget>[
+              //here modify with my row
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: TextField(
+                    controller: myController,
+                    decoration: new InputDecoration(labelText: "How Much?"),
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+                InkWell(
+                    onTap: () {
+                      Global().money -= int.parse(myController.text);
+                      Navigator.of(context).pop(); // To close the dialog
+                    },
+                    child: getBuyBoxLarge("Buy")),
+              ]),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: FlatButton(
+                  onPressed: () {
+                  },
+                  child: Text(buttonText),
+                ),
+              ),
+            ],
+          ),
+        ),
+        //...top circlular image part,
+      ],
+    );
+  }
+
+  Widget getBuyBoxLarge(String s) {
+    return Container(
+        padding: EdgeInsets.only(left: 12, top: 5, right: 12, bottom: 5),
+        child: Text(
+          s,
+          style: TextStyle(
+            fontFamily: 'Avenir',
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: Colors.green,
+        ));
+  }
+}
+
+class Consts {
+  Consts._();
+
+  static const double padding = 16.0;
+  static const double avatarRadius = 66.0;
 }
