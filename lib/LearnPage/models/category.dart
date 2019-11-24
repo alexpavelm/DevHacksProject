@@ -47,7 +47,7 @@ class Category {
   static List<Category> popularCourseList = [
     Category(
       imagePath: 'assets/images/interFace3.png',
-      title: 'Crowdfounding',
+      title: 'Uses of crowdfunding',
       minutes: 10,
       money: 25,
       rating: 4.8,
@@ -60,14 +60,14 @@ class Category {
       rating: 4.9,
     ),
     Category(
-      imagePath: 'assets/images/interFace1.png',
+      imagePath: 'assets/images/interFace3.png',
       title: 'Stocks',
       minutes: 15,
       money: 25,
       rating: 4.8,
     ),
     Category(
-      imagePath: 'assets/images/interFace2.png',
+      imagePath: 'assets/images/interFace4.png',
       title: 'Staying ahead of the market',
       minutes: 30,
       money: 208,

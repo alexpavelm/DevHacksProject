@@ -126,10 +126,12 @@ class CategoryView extends StatelessWidget {
                                   Expanded(
                                     child: Container(
                                       child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                top: 16, left: 16, right: 16),
+                                                top: 20, left: 16, right: 16),
                                             child: Text(
                                               category.title,
                                               textAlign: TextAlign.left,
@@ -172,9 +174,6 @@ class CategoryView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 48,
                                   ),
                                 ],
                               ),
