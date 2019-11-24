@@ -408,7 +408,7 @@ class _InvestmentViewState extends State<InvestmentView> {
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text("\$" + price.toString(),
+              Text("£" + price.toString(),
                   style: TextStyle(
                       fontFamily: 'Avenir',
                       fontWeight: FontWeight.w600,

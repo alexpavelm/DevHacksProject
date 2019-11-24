@@ -82,7 +82,6 @@ class _InvestmentsListState extends State<InvestmentsList> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  width: MediaQuery.of(context).size.width - 126,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -108,7 +107,7 @@ class _InvestmentsListState extends State<InvestmentsList> {
                   ),
                 ),
                 Text(
-                  "RON" + sum.toString(),
+                  "£" + sum.toString(),
                   style: TextStyle(
                       fontFamily: 'Avenir',
                       fontSize: 18,
