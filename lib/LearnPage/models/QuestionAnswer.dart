@@ -70,22 +70,39 @@ class Question {
       ]);
 
   // Learn (starts at qLearn)
-  static Question qLearn =
-      Question(text: 'What would you like to learn about?', answers: [
-    Answer(text: "Risk"),
-    Answer(
-        text: "Investments",
-        nextQuestion: Question(
-            text: "Which type of investment are you interested in?",
-            answers: [
-              Answer(text: "Stocks"),
-              Answer(text: "Bonds"),
-              Answer(text: "Mutual Funds"),
-              Answer(text: "REIT"),
-              Answer(text: "Index Funds"),
-              Answer(text: "Startups")
-            ], nextQuestion: Question(text: "GG!")))
-  ]);
+  static Question qLearn = Question(
+      text:
+          'Stocks are an investment that means you own a share in the company that issued the stock.',
+      answers: [
+        Answer(
+            text: "Continue",
+            nextQuestion: Question(
+                text:
+                    "When you buy the stock of a company, you're effectively buying an ownership share in that company.",
+                answers: [
+                  Answer(
+                      text: "Continue",
+                      nextQuestion: Question(
+                          text:
+                              "Does that mean that you get to sit next to Tim Cook at Apple's next shareholder meeting?",
+                          answers: [
+                            Answer(
+                                text: "Yes?",
+                                nextQuestion: Question(
+                                    text: "Not quite...",
+                                    details:
+                                        "But in most cases, it does mean you get a right to vote at those meetings, if you choose to exercise it.",
+                                    answers: [Answer(text: "Continue")])),
+                            Answer(
+                                text: "No?",
+                                nextQuestion: Question(
+                                    text: "Unfortunately, that's right.",
+                                    details:
+                                        "But in most cases, it does mean you get a right to vote at those meetings, if you choose to exercise it.",
+                                    answers: [Answer(text: "Continue")]))
+                          ]))
+                ]))
+      ]);
 }
 
 class Answer {

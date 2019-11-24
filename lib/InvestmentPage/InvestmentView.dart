@@ -6,6 +6,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'InvestmentData.dart';
 import 'package:devhacks_app/Global.dart';
 
+import 'package:devhacks_app/LearnPage/LearnView.dart';
+import 'package:devhacks_app/LearnPage/models/QuestionAnswer.dart';
+
 class InvestmentView extends StatefulWidget {
   @override
   _InvestmentViewState createState() => _InvestmentViewState();
@@ -125,8 +128,18 @@ class _InvestmentViewState extends State<InvestmentView> {
 
                 Padding(
                   padding: const EdgeInsets.only(right: 4.0),
-                  child: Icon(FontAwesomeIcons.questionCircle,
-                      color: Colors.black54),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LearnView(Question.qLearn),
+                        ),
+                      );
+                    },
+                    icon: Icon(FontAwesomeIcons.questionCircle,
+                        color: Colors.black54),
+                  ),
                 ),
               ],
             ),
