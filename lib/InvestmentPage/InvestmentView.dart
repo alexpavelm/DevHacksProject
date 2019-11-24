@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:devhacks_app/InvestmentPage/InvestedData.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,6 +22,7 @@ class InvestmentCategory {
 class _InvestmentViewState extends State<InvestmentView> {
   List<InvestmentData> _moreList = new List();
   final myController = TextEditingController();
+  int i = Global().counterList;
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +258,7 @@ class _InvestmentViewState extends State<InvestmentView> {
             );
           }
           if (i >= _moreList.length) {
-            _moreList.addAll(generateInvestmentData().take(5)); /*4*/
+            _moreList.addAll(generateInvestmentData().take(2)); /*4*/
           }
           return InkWell(
               onTap: () {
@@ -274,6 +276,85 @@ class _InvestmentViewState extends State<InvestmentView> {
 
   Iterable<InvestmentData> generateInvestmentData() sync* {
     while (true) {
+      switch (i) {
+        case 0:
+          InvestmentData a =
+              InvestmentData("Apple Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 1:
+          InvestmentData a =
+              InvestmentData("Apple2 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 2:
+          InvestmentData a =
+              InvestmentData("Apple2 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 3:
+          InvestmentData a =
+              InvestmentData("Apple3 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 4:
+          InvestmentData a =
+              InvestmentData("Apple4 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 5:
+          InvestmentData a =
+              InvestmentData("Apple5 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 6:
+          InvestmentData a =
+              InvestmentData("Apple6 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 7:
+          InvestmentData a =
+              InvestmentData("Apple7 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 8:
+          InvestmentData a =
+              InvestmentData("Apple8 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 9:
+          InvestmentData a =
+              InvestmentData("Apple9 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 10:
+          InvestmentData a =
+              InvestmentData("Apple10 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        case 11:
+          InvestmentData a =
+              InvestmentData("Apple11 Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+          break;
+        default:
+          InvestmentData a =
+              InvestmentData("AppleD Inc.", "No minimum | 0.3%", 89);
+          yield a;
+          i = (++i % 20);
+      }
       InvestmentData a = InvestmentData("Apple Inc.", "No minimum | 0.3%", 89);
       yield a;
     }
@@ -324,9 +405,9 @@ class _InvestmentViewState extends State<InvestmentView> {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) => CustomDialog(
-                              title: "Succ",
-                              description: "sdad",
-                              buttonText: "",
+                              title: "Apple Inc.",
+                              description: "-0.24%",
+                              buttonText: price.ceilToDouble(),
                             ));
                   },
                   child: getBuyBox("Invest"))
@@ -582,7 +663,8 @@ class InvestmentCategoryNews {
 }
 
 class CustomDialog extends StatelessWidget {
-  final String title, description, buttonText;
+  final String title, description;
+  final double buttonText;
   final Image image;
   final myController = TextEditingController();
 
@@ -645,6 +727,9 @@ class CustomDialog extends StatelessWidget {
                 InkWell(
                     onTap: () {
                       Global().money -= int.parse(myController.text);
+                      InvestedData a = InvestedData(
+                          title, description, buttonText, buttonText);
+                      Global().invested.add(a);
                       Navigator.of(context).pop(); // To close the dialog
                     },
                     child: getBuyBoxLarge("Buy")),
@@ -652,9 +737,8 @@ class CustomDialog extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomRight,
                 child: FlatButton(
-                  onPressed: () {
-                  },
-                  child: Text(buttonText),
+                  onPressed: () {},
+                  child: Text(""),
                 ),
               ),
             ],

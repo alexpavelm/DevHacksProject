@@ -62,12 +62,13 @@ class Question {
         Answer(text: "Moderate risk"),
         Answer(text: "High risk"),
       ]);
-  static Question qStart = Question(
+
+  /*static Question qStart = Question(
       text: "Do you already know what you want to invest in?",
       answers: [
         Answer(text: "Yes", nextQuestion: qInvestments),
         Answer(text: "No", nextQuestion: qRisk)
-      ]);
+      ]);*/
 
   // Learn (starts at qLearn)
   static Question qLearn =
@@ -84,8 +85,164 @@ class Question {
               Answer(text: "REIT"),
               Answer(text: "Index Funds"),
               Answer(text: "Startups")
-            ], nextQuestion: Question(text: "GG!")))
+            ],
+            nextQuestion: Question(text: "GG!")))
   ]);
+
+  //new list
+  static Question qStart =
+      Question(text: "How familiar are you with investing?", answers: [
+    Answer(
+      text: "Not very familiar",
+      nextQuestion: qNotFamiliar1,
+    ),
+    Answer(
+      text: "I am well accustomed to it",
+      nextQuestion: qMainInterests,
+    ),
+  ]);
+  static Question qMainInterests = Question(
+      text: "What are your main interests to invest in?",
+      nextQuestion: qRiskAssessment,
+      answers: [
+        Answer(text: "Stocks"),
+        Answer(text: "Bonds"),
+        Answer(text: "Mutual Funds"),
+        Answer(text: "REIT"),
+        Answer(text: "Index Funds"),
+        Answer(text: "Startups"),
+        Answer(text: "ETFs"),
+      ]);
+  static Question qRiskAssessment = Question(
+      text: "How risk-tolerant are you?",
+      nextQuestion: qFrequencyOfInvestment,
+      answers: [
+        Answer(text: "I am risk-averse"),
+        Answer(text: "I am moderately tolerant"),
+        Answer(text: "I am risk-seeking"),
+      ]);
+  static Question qFrequencyOfInvestment = Question(
+      text: "How often do you want to invest?",
+      nextQuestion: qStartMoney,
+      answers: [
+        Answer(text: "daily"),
+        Answer(text: "weekly"),
+        Answer(text: "monthly"),
+        Answer(text: "yearly")
+      ]);
+  static Question qStartMoney = Question(
+      text: "Do you have a sum of money you are willing to invest?",
+      nextQuestion: qExpectedReturn,
+      answers: [
+        Answer(text: "No, we will see"),
+        Answer(text: "Under \$100"),
+        Answer(text: "Under \$1000"),
+        Answer(text: "Over \$1000"),
+      ]);
+  static Question qExpectedReturn = Question(
+      text: "When are you expecting to get your return?",
+      nextQuestion: qOwnership,
+      answers: [
+        Answer(text: "as soon as possible"),
+        Answer(text: "at the end of the month"),
+        Answer(text: "at the end of the year"),
+        Answer(text: "in many years' time"),
+      ]);
+  static Question qOwnership = Question(
+      text: "Are you willing to invest into company ownership?",
+      nextQuestion: qForeign,
+      answers: [
+        Answer(text: "Yes, I value ownership"),
+        Answer(text: "No, I only care about dividends"),
+      ]);
+  static Question qForeign = Question(
+      text:
+          "Do you tolerate foreign assets? (1-Not at all, 5-Yes, I prefer them)",
+      nextQuestion: qFinalNew,
+      answers: [
+        Answer(text: "1"),
+        Answer(text: "2"),
+        Answer(text: "3"),
+        Answer(text: "4"),
+        Answer(text: "5"),
+      ]);
+  static Question qFinalNew = Question(
+      text:
+          "We have prepared some recommendations based on your preferences. We are now ready to begin investing.",
+      answers: [
+        Answer(text: "Ok."),
+      ],
+      callback: (context) {
+        print("HELLO");
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => BottomNavBar(0)),
+        );
+      });
+
+  static Question qNotFamiliar1 = Question(
+      text:
+          "I remain calm and relaxed in situations in which most people would become fearful, upset, or stressed.",
+      nextQuestion: qNotFamiliar2,
+      answers: [
+        Answer(text: "1"),
+        Answer(text: "2"),
+        Answer(text: "3"),
+        Answer(text: "4"),
+        Answer(text: "5"),
+      ]);
+  static Question qNotFamiliar2 = Question(
+      text:
+          "At an amusement park, I automatically gravitate toward the highest, fastest, most intense rides.",
+      nextQuestion: qNotFamiliar3,
+      answers: [
+        Answer(text: "1"),
+        Answer(text: "2"),
+        Answer(text: "3"),
+        Answer(text: "4"),
+        Answer(text: "5"),
+      ]);
+  static Question qNotFamiliar3 = Question(
+      text: "I will take a greater risk for a greater potential payoff.",
+      nextQuestion: qNotFamiliar4,
+      answers: [
+        Answer(text: "1"),
+        Answer(text: "2"),
+        Answer(text: "3"),
+        Answer(text: "4"),
+        Answer(text: "5"),
+      ]);
+  static Question qNotFamiliar4 = Question(
+      text:
+          " I lose confidence when there is a chance that my project will fail.",
+      nextQuestion: qNotFamiliar5,
+      answers: [
+        Answer(text: "1"),
+        Answer(text: "2"),
+        Answer(text: "3"),
+        Answer(text: "4"),
+        Answer(text: "5"),
+      ]);
+  static Question qNotFamiliar5 = Question(
+      text: "Chance has a lot to do with being successful.",
+      nextQuestion: qNotFamiliar6,
+      answers: [
+        Answer(text: "1"),
+        Answer(text: "2"),
+        Answer(text: "3"),
+        Answer(text: "4"),
+        Answer(text: "5"),
+      ]);
+  static Question qNotFamiliar6 = Question(
+      text: "If I take a risk and fail, I can handle the consequences.",
+      nextQuestion: qFrequencyOfInvestment,
+      answers: [
+        Answer(text: "1"),
+        Answer(text: "2"),
+        Answer(text: "3"),
+        Answer(text: "4"),
+        Answer(text: "5"),
+      ]);
 }
 
 class Answer {

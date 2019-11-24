@@ -23,5 +23,6 @@ class Global {
   bool loaded = false;
   double money = 150;
   double profit = 0;
+  int counterList = 0;
   List<InvestedData> invested = new List();
 }
