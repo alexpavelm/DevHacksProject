@@ -24,6 +24,7 @@ class InvestmentCategory {
 
 class _InvestmentViewState extends State<InvestmentView> {
   List<InvestmentData> _moreList = new List();
+
   final myController = TextEditingController();
   int i = Global().counterList;
 
@@ -255,6 +256,7 @@ class _InvestmentViewState extends State<InvestmentView> {
   }
 
   Widget _buildSuggestions(title) {
+    populateList();
     return ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemBuilder: /*1*/ (context, i) {
@@ -289,87 +291,9 @@ class _InvestmentViewState extends State<InvestmentView> {
 
   Iterable<InvestmentData> generateInvestmentData() sync* {
     while (true) {
-      switch (i) {
-        case 0:
-          InvestmentData a =
-              InvestmentData("Apple Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 1:
-          InvestmentData a =
-              InvestmentData("Apple2 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 2:
-          InvestmentData a =
-              InvestmentData("Apple2 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 3:
-          InvestmentData a =
-              InvestmentData("Apple3 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 4:
-          InvestmentData a =
-              InvestmentData("Apple4 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 5:
-          InvestmentData a =
-              InvestmentData("Apple5 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 6:
-          InvestmentData a =
-              InvestmentData("Apple6 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 7:
-          InvestmentData a =
-              InvestmentData("Apple7 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 8:
-          InvestmentData a =
-              InvestmentData("Apple8 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 9:
-          InvestmentData a =
-              InvestmentData("Apple9 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 10:
-          InvestmentData a =
-              InvestmentData("Apple10 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        case 11:
-          InvestmentData a =
-              InvestmentData("Apple11 Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-          break;
-        default:
-          InvestmentData a =
-              InvestmentData("AppleD Inc.", "No minimum | 0.3%", 89);
-          yield a;
-          i = (++i % 20);
-      }
-      InvestmentData a = InvestmentData("Apple Inc.", "No minimum | 0.3%", 89);
+      InvestmentData a = InvestmentData("Rolls Royce Inc.", "No minimum | 0.3%", 20);
       yield a;
+      i = (++i % 20);
     }
   }
 
@@ -420,7 +344,7 @@ class _InvestmentViewState extends State<InvestmentView> {
                         builder: (BuildContext context) => CustomDialog(
                               title: "Apple Inc.",
                               description: "-0.24%",
-                              buttonText: price.ceilToDouble(),
+                              buttonText: 20,
                             ));
                   },
                   child: getBuyBox("Invest"))
@@ -656,6 +580,27 @@ class _InvestmentViewState extends State<InvestmentView> {
           borderRadius: BorderRadius.circular(20.0),
           color: Colors.green,
         ));
+  }
+
+  void populateList() {
+    List<InvestmentData> titles = new List();
+    titles.add(InvestmentData("NIKE, Inc.", "+1.18%", 68));
+    titles.add(InvestmentData("NIKE, Inc.", "+1.18%", 68));
+    titles.add(InvestmentData("Starbucks Corporation", "+0.72%", 67));
+    titles.add(InvestmentData("Apple Inc.", "-0.23%", 40));
+    titles.add(InvestmentData("General Electric", "+0.02%", 39));
+    titles.add(InvestmentData("The Boeing Company", "+0.05%", 38));
+    titles.add(InvestmentData("The Walt Disney Corporation", "+0.01%", 37));
+    titles.add(InvestmentData("Berkshire Hathaway Inc.", "-0.05%", 36));
+    titles.add(InvestmentData("Burberry", "-0.11%", 34));
+    titles.add(InvestmentData("Compass Group", "+0.05%", 33));
+    titles.add(InvestmentData("Diageo", "+0.04%", 32));
+    titles.add(InvestmentData("Flutter Entertainment", "+0.16%", 31));
+    titles.add(InvestmentData("Evraz", "+0.13%", 30));
+    titles.add(InvestmentData("Royal Dutch Shell", "+0.03%", 29));
+    titles.add(InvestmentData("Glencore", "-0.01%", 28));
+    titles.add(InvestmentData("Coca-Cola HBC", "+0.02%", 27));
+    _moreList.addAll(titles);
   }
 }
 
